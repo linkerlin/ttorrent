@@ -81,7 +81,7 @@ public class SharingPeer extends Peer implements MessageListener {
 	private volatile boolean interested;
 
 	private volatile SharedTorrent torrent;
-	private volatile BitSet availablePieces;
+	private final BitSet availablePieces;
 
 	private volatile Piece requestedPiece;
 	private volatile int lastRequestedOffset;
