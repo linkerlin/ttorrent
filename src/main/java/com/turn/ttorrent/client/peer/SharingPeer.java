@@ -831,6 +831,7 @@ public class SharingPeer extends Peer implements MessageListener {
 		}
 	}
 
+    @Override
 	public String toString() {
 		return new StringBuilder(super.toString())
 			.append(" [")

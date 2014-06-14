@@ -53,10 +53,10 @@ public class TrackedPeer extends Peer {
 
 	private static final int FRESH_TIME_SECONDS = 30;
 
-	private long uploaded;
-	private long downloaded;
-	private long left;
-	private Torrent torrent;
+	private volatile long uploaded;
+	private volatile long downloaded;
+	private volatile long left;
+	private volatile Torrent torrent;
 
 	/**
 	 * Represents the state of a peer exchanging on this torrent.
@@ -89,8 +89,8 @@ public class TrackedPeer extends Peer {
 		STOPPED;
 	};
 
-	private PeerState state;
-	private Date lastAnnounce;
+	private volatile PeerState state;
+	private volatile Date lastAnnounce;
 
 	/**
 	 * Instantiate a new tracked peer for the given torrent.
