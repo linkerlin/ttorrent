@@ -92,7 +92,27 @@ public abstract class PeerMessage {
 		this.data.rewind();
 	}
 
-	public Type getType() {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PeerMessage that = (PeerMessage) o;
+
+        if (data != null ? !data.equals(that.data) : that.data != null) return false;
+        if (type != that.type) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = type != null ? type.hashCode() : 0;
+        result = 31 * result + (data != null ? data.hashCode() : 0);
+        return result;
+    }
+
+    public Type getType() {
 		return this.type;
 	}
 
@@ -475,7 +495,31 @@ public abstract class PeerMessage {
 			this.length = length;
 		}
 
-		public int getPiece() {
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            if (!super.equals(o)) return false;
+
+            RequestMessage that = (RequestMessage) o;
+
+            if (length != that.length) return false;
+            if (offset != that.offset) return false;
+            if (piece != that.piece) return false;
+
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = super.hashCode();
+            result = 31 * result + piece;
+            result = 31 * result + offset;
+            result = 31 * result + length;
+            return result;
+        }
+
+        public int getPiece() {
 			return this.piece;
 		}
 

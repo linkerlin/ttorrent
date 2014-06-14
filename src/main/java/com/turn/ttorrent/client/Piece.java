@@ -141,7 +141,41 @@ public class Piece implements Comparable<Piece> {
 		this.seen--;
 	}
 
-	/**
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Piece piece = (Piece) o;
+
+        if (index != piece.index) return false;
+        if (length != piece.length) return false;
+        if (offset != piece.offset) return false;
+        if (seeder != piece.seeder) return false;
+        if (seen != piece.seen) return false;
+        if (valid != piece.valid) return false;
+        if (bucket != null ? !bucket.equals(piece.bucket) : piece.bucket != null) return false;
+        if (data != null ? !data.equals(piece.data) : piece.data != null) return false;
+        if (!Arrays.equals(hash, piece.hash)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = bucket != null ? bucket.hashCode() : 0;
+        result = 31 * result + index;
+        result = 31 * result + (int) (offset ^ (offset >>> 32));
+        result = 31 * result + (int) (length ^ (length >>> 32));
+        result = 31 * result + (hash != null ? Arrays.hashCode(hash) : 0);
+        result = 31 * result + (seeder ? 1 : 0);
+        result = 31 * result + (valid ? 1 : 0);
+        result = 31 * result + seen;
+        result = 31 * result + (data != null ? data.hashCode() : 0);
+        return result;
+    }
+
+    /**
 	 * Validates this piece.
 	 *
 	 * @return Returns true if this piece, as stored in the underlying byte

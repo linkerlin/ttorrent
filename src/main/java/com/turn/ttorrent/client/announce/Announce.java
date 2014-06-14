@@ -61,8 +61,8 @@ public class Announce implements Runnable {
 
 	/** Announce thread and control. */
 	private Thread thread;
-	private boolean stop;
-	private boolean forceStop;
+	private volatile boolean stop;
+	private volatile boolean forceStop;
 
 	/** Announce interval. */
 	private int interval;

@@ -29,14 +29,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
-import java.util.ArrayList;
-import java.util.BitSet;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -856,4 +849,56 @@ public class SharedTorrent extends Torrent implements PeerActivityListener {
 	@Override
 	public synchronized void handleIOException(SharingPeer peer,
 			IOException ioe) { /* Do nothing */ }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SharedTorrent that = (SharedTorrent) o;
+
+        if (downloaded != that.downloaded) return false;
+        if (initialized != that.initialized) return false;
+        if (left != that.left) return false;
+        if (Double.compare(that.maxDownloadRate, maxDownloadRate) != 0) return false;
+        if (Double.compare(that.maxUploadRate, maxUploadRate) != 0) return false;
+        if (pieceLength != that.pieceLength) return false;
+        if (stop != that.stop) return false;
+        if (uploaded != that.uploaded) return false;
+        if (bucket != null ? !bucket.equals(that.bucket) : that.bucket != null) return false;
+        if (completedPieces != null ? !completedPieces.equals(that.completedPieces) : that.completedPieces != null)
+            return false;
+        if (!Arrays.equals(pieces, that.pieces)) return false;
+        if (piecesHashes != null ? !piecesHashes.equals(that.piecesHashes) : that.piecesHashes != null) return false;
+        if (random != null ? !random.equals(that.random) : that.random != null) return false;
+        if (rarest != null ? !rarest.equals(that.rarest) : that.rarest != null) return false;
+        if (requestedPieces != null ? !requestedPieces.equals(that.requestedPieces) : that.requestedPieces != null)
+            return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = random != null ? random.hashCode() : 0;
+        result = 31 * result + (stop ? 1 : 0);
+        result = 31 * result + (int) (uploaded ^ (uploaded >>> 32));
+        result = 31 * result + (int) (downloaded ^ (downloaded >>> 32));
+        result = 31 * result + (int) (left ^ (left >>> 32));
+        result = 31 * result + (bucket != null ? bucket.hashCode() : 0);
+        result = 31 * result + pieceLength;
+        result = 31 * result + (piecesHashes != null ? piecesHashes.hashCode() : 0);
+        result = 31 * result + (initialized ? 1 : 0);
+        result = 31 * result + (pieces != null ? Arrays.hashCode(pieces) : 0);
+        result = 31 * result + (rarest != null ? rarest.hashCode() : 0);
+        result = 31 * result + (completedPieces != null ? completedPieces.hashCode() : 0);
+        result = 31 * result + (requestedPieces != null ? requestedPieces.hashCode() : 0);
+        temp = Double.doubleToLongBits(maxUploadRate);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(maxDownloadRate);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
 }

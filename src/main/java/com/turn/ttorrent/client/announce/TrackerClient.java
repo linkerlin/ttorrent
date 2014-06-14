@@ -42,7 +42,31 @@ public abstract class TrackerClient {
 		this.tracker = tracker;
 	}
 
-	/**
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TrackerClient that = (TrackerClient) o;
+
+        if (listeners != null ? !listeners.equals(that.listeners) : that.listeners != null) return false;
+        if (peer != null ? !peer.equals(that.peer) : that.peer != null) return false;
+        if (torrent != null ? !torrent.equals(that.torrent) : that.torrent != null) return false;
+        if (tracker != null ? !tracker.equals(that.tracker) : that.tracker != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = listeners != null ? listeners.hashCode() : 0;
+        result = 31 * result + (torrent != null ? torrent.hashCode() : 0);
+        result = 31 * result + (peer != null ? peer.hashCode() : 0);
+        result = 31 * result + (tracker != null ? tracker.hashCode() : 0);
+        return result;
+    }
+
+    /**
 	 * Register a new announce response listener.
 	 *
 	 * @param listener The listener to register on this announcer events.

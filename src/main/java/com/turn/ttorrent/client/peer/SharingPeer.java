@@ -120,7 +120,57 @@ public class SharingPeer extends Peer implements MessageListener {
 		this.requestedPiece = null;
 	}
 
-	/**
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SharingPeer that = (SharingPeer) o;
+
+        if (choked != that.choked) return false;
+        if (choking != that.choking) return false;
+        if (downloading != that.downloading) return false;
+        if (interested != that.interested) return false;
+        if (interesting != that.interesting) return false;
+        if (lastRequestedOffset != that.lastRequestedOffset) return false;
+        if (availablePieces != null ? !availablePieces.equals(that.availablePieces) : that.availablePieces != null)
+            return false;
+        if (download != null ? !download.equals(that.download) : that.download != null) return false;
+        if (exchange != null ? !exchange.equals(that.exchange) : that.exchange != null) return false;
+        if (exchangeLock != null ? !exchangeLock.equals(that.exchangeLock) : that.exchangeLock != null) return false;
+        if (listeners != null ? !listeners.equals(that.listeners) : that.listeners != null) return false;
+        if (requestedPiece != null ? !requestedPiece.equals(that.requestedPiece) : that.requestedPiece != null)
+            return false;
+        if (requests != null ? !requests.equals(that.requests) : that.requests != null) return false;
+        if (requestsLock != null ? !requestsLock.equals(that.requestsLock) : that.requestsLock != null) return false;
+        if (torrent != null ? !torrent.equals(that.torrent) : that.torrent != null) return false;
+        if (upload != null ? !upload.equals(that.upload) : that.upload != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (choking ? 1 : 0);
+        result = 31 * result + (interesting ? 1 : 0);
+        result = 31 * result + (choked ? 1 : 0);
+        result = 31 * result + (interested ? 1 : 0);
+        result = 31 * result + (torrent != null ? torrent.hashCode() : 0);
+        result = 31 * result + (availablePieces != null ? availablePieces.hashCode() : 0);
+        result = 31 * result + (requestedPiece != null ? requestedPiece.hashCode() : 0);
+        result = 31 * result + lastRequestedOffset;
+        result = 31 * result + (requests != null ? requests.hashCode() : 0);
+        result = 31 * result + (downloading ? 1 : 0);
+        result = 31 * result + (exchange != null ? exchange.hashCode() : 0);
+        result = 31 * result + (download != null ? download.hashCode() : 0);
+        result = 31 * result + (upload != null ? upload.hashCode() : 0);
+        result = 31 * result + (listeners != null ? listeners.hashCode() : 0);
+        result = 31 * result + (requestsLock != null ? requestsLock.hashCode() : 0);
+        result = 31 * result + (exchangeLock != null ? exchangeLock.hashCode() : 0);
+        return result;
+    }
+
+    /**
 	 * Register a new peer activity listener.
 	 *
 	 * @param listener The activity listener that wants to receive events from

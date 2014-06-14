@@ -157,7 +157,45 @@ public class Client extends Observable implements Runnable,
 		this.random = new Random(System.currentTimeMillis());
 	}
 
-	/**
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Client client = (Client) o;
+
+        if (seed != client.seed) return false;
+        if (stop != client.stop) return false;
+        if (announce != null ? !announce.equals(client.announce) : client.announce != null) return false;
+        if (connected != null ? !connected.equals(client.connected) : client.connected != null) return false;
+        if (peers != null ? !peers.equals(client.peers) : client.peers != null) return false;
+        if (random != null ? !random.equals(client.random) : client.random != null) return false;
+        if (self != null ? !self.equals(client.self) : client.self != null) return false;
+        if (service != null ? !service.equals(client.service) : client.service != null) return false;
+        if (state != client.state) return false;
+        if (thread != null ? !thread.equals(client.thread) : client.thread != null) return false;
+        if (torrent != null ? !torrent.equals(client.torrent) : client.torrent != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = torrent != null ? torrent.hashCode() : 0;
+        result = 31 * result + (state != null ? state.hashCode() : 0);
+        result = 31 * result + (self != null ? self.hashCode() : 0);
+        result = 31 * result + (thread != null ? thread.hashCode() : 0);
+        result = 31 * result + (stop ? 1 : 0);
+        result = 31 * result + (int) (seed ^ (seed >>> 32));
+        result = 31 * result + (service != null ? service.hashCode() : 0);
+        result = 31 * result + (announce != null ? announce.hashCode() : 0);
+        result = 31 * result + (peers != null ? peers.hashCode() : 0);
+        result = 31 * result + (connected != null ? connected.hashCode() : 0);
+        result = 31 * result + (random != null ? random.hashCode() : 0);
+        return result;
+    }
+
+    /**
 	 * Set the maximum download rate (in kB/second) for this
 	 * torrent. A setting of <= 0.0 disables rate limiting.
 	 *
