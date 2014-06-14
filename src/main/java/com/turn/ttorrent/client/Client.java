@@ -103,7 +103,7 @@ public class Client extends Observable implements Runnable,
 	private Peer self;
 
 	private Thread thread;
-	private boolean stop;
+	private volatile boolean stop;
 	private long seed;
 
 	private ConnectionHandler service;

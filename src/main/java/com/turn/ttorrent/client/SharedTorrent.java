@@ -76,18 +76,18 @@ public class SharedTorrent extends Torrent implements PeerActivityListener {
 	private static final float ENG_GAME_COMPLETION_RATIO = 0.95f;
 
 	private Random random;
-	private boolean stop;
+	private volatile boolean stop;
 
-	private long uploaded;
-	private long downloaded;
-	private long left;
+	private volatile long uploaded;
+	private volatile long downloaded;
+	private volatile long left;
 
 	private final TorrentByteStorage bucket;
 
 	private final int pieceLength;
 	private final ByteBuffer piecesHashes;
 
-	private boolean initialized;
+	private volatile boolean initialized;
 	private Piece[] pieces;
 	private SortedSet<Piece> rarest;
 	private BitSet completedPieces;

@@ -74,28 +74,28 @@ public class SharingPeer extends Peer implements MessageListener {
 
 	private static final int MAX_PIPELINED_REQUESTS = 5;
 
-	private boolean choking;
-	private boolean interesting;
+	private volatile boolean choking;
+	private volatile boolean interesting;
 
-	private boolean choked;
-	private boolean interested;
+	private volatile boolean choked;
+	private volatile boolean interested;
 
-	private SharedTorrent torrent;
-	private BitSet availablePieces;
+	private volatile SharedTorrent torrent;
+	private volatile BitSet availablePieces;
 
-	private Piece requestedPiece;
-	private int lastRequestedOffset;
+	private volatile Piece requestedPiece;
+	private volatile int lastRequestedOffset;
 
-	private BlockingQueue<PeerMessage.RequestMessage> requests;
+	private volatile BlockingQueue<PeerMessage.RequestMessage> requests;
 	private volatile boolean downloading;
 
-	private PeerExchange exchange;
-	private Rate download;
-	private Rate upload;
+	private volatile PeerExchange exchange;
+	private volatile Rate download;
+	private volatile Rate upload;
 
-	private Set<PeerActivityListener> listeners;
+	private volatile Set<PeerActivityListener> listeners;
 
-	private Object requestsLock, exchangeLock;
+	private volatile Object requestsLock, exchangeLock;
 
 	/**
 	 * Create a new sharing peer on a given torrent.

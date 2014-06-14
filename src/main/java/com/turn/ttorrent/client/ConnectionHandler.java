@@ -95,7 +95,7 @@ public class ConnectionHandler implements Runnable {
 	private Set<IncomingConnectionListener> listeners;
 	private ExecutorService executor;
 	private Thread thread;
-	private boolean stop;
+	private volatile boolean stop;
 
 	/**
 	 * Create and start a new listening service for out torrent, reporting

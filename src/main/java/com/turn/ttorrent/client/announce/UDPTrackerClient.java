@@ -101,7 +101,7 @@ public class UDPTrackerClient extends TrackerClient {
 	private Date connectionExpiration;
 	private long connectionId;
 	private int transactionId;
-	private boolean stop;
+	private volatile boolean stop;
 
 	private enum State {
 		CONNECT_REQUEST,
