@@ -167,6 +167,7 @@ public class Peer {
 	/**
 	 * Returns a human-readable representation of this peer.
 	 */
+    @Override
 	public String toString() {
 		StringBuilder s = new StringBuilder("peer://")
 			.append(this.getIp()).append(":").append(this.getPort())
@@ -195,8 +196,6 @@ public class Peer {
 		}
 
 		return this.hostId.equals(other.hostId) &&
-			(this.hasPeerId()
-				 ? this.hexPeerId.equals(other.hexPeerId)
-				 : true);
+			(!this.hasPeerId() || this.hexPeerId.equals(other.hexPeerId));
 	}
 }
