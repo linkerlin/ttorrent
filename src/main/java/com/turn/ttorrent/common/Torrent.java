@@ -81,7 +81,7 @@ public class Torrent {
 	public static final int PIECE_HASH_SIZE = 20;
 
 	/** The query parameters encoding when parsing byte strings. */
-	public static final String BYTE_ENCODING = "ISO-8859-1";
+	public static final String BYTE_ENCODING = "UTF-8";//"ISO-8859-1";
 
 	/**
 	 *
